@@ -88,7 +88,6 @@ func Search(query []string, limit int) *bleve.SearchResult {
 		query := bleve.NewQueryStringQuery(queryStr)
 
 		search := bleve.NewSearchRequest(query)
-		println(limit)
 		search.Size = limit
 
 		search.Highlight = bleve.NewHighlightWithStyle("ansi")
