@@ -13,12 +13,22 @@ func main() {
 	app := &cli.App{
 		Name:  "Yaa",
 		Usage: "Yaml Searach for Humans",
+
+		Flags: []cli.Flag{
+			&cli.IntFlag{
+				Name:  "limit",
+				Value: 10,
+				Usage: "Number of results to display",
+			},
+		},
+
 		Commands: []*cli.Command{
 			{
 				Name:    "search",
 				Aliases: []string{"s"},
 				Usage:   "Search for sigma rules",
-				Action:  searchAction,
+
+				Action: searchAction,
 			},
 			{
 				Name:    "index",
@@ -29,7 +39,10 @@ func main() {
 		},
 	}
 
-	app.Run(os.Args)
+	err := app.Run(os.Args)
+	if err != nil {
+		fmt.Println(err)
+	}
 }
 
 func searchAction(c *cli.Context) error {
@@ -37,8 +50,9 @@ func searchAction(c *cli.Context) error {
 	if len(query) == 0 {
 		return cli.Exit("Please provide a search query", 1)
 	}
+	limit := c.Int("limit")
 
-	results := yaasearch.Search(query)
+	results := yaasearch.Search(query, limit)
 	if results != nil {
 
 		fmt.Println(results)

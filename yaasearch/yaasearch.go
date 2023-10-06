@@ -76,7 +76,7 @@ func Index(dataDir string) error {
 
 }
 
-func Search(query []string) *bleve.SearchResult {
+func Search(query []string, limit int) *bleve.SearchResult {
 	// Search for a term within the index
 
 	if indexExists(indexDir) {
@@ -88,6 +88,9 @@ func Search(query []string) *bleve.SearchResult {
 		query := bleve.NewQueryStringQuery(queryStr)
 
 		search := bleve.NewSearchRequest(query)
+		println(limit)
+		search.Size = limit
+
 		search.Highlight = bleve.NewHighlightWithStyle("ansi")
 
 		fmt.Printf("Searching for '%s'\n", queryStr)
