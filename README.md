@@ -44,3 +44,30 @@ yaa is built for searching inside detection rule projects such as SigmaHQ, howve
 
 
 
+
+## Build yaa 
+
+```bash
+% git clone https://github.com/alwashali/yaa.git
+% go build yaa.go
+% ./yaa
+NAME:
+   Yaa - Yaml Searach for Humans
+
+USAGE:
+   Yaa [global options] command [command options] [arguments...]
+
+COMMANDS:
+   search, s  Search for sigma rules
+   index, i   Path to yaml folder
+   help, h    Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --limit value  Number of results to display (default: 10)
+   --help, -h     show help
+```
+
+
+
+
+
