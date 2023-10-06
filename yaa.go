@@ -11,8 +11,8 @@ import (
 
 func main() {
 	app := &cli.App{
-		Name:  "Yaa Search",
-		Usage: "Search yaml content",
+		Name:  "Yaa",
+		Usage: "Yaml Searach for Humans",
 		Commands: []*cli.Command{
 			{
 				Name:    "search",
@@ -23,7 +23,7 @@ func main() {
 			{
 				Name:    "index",
 				Aliases: []string{"i"},
-				Usage:   "Index rules",
+				Usage:   "Path to yaml folder",
 				Action:  indexAction,
 			},
 		},

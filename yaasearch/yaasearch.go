@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/blevesearch/bleve"
 	_ "github.com/blevesearch/bleve/config"
@@ -15,14 +16,6 @@ import (
 var indexDir = "yaml_index"
 
 func Index(dataDir string) error {
-
-	//remove the index directory if already exists
-	if indexExists(indexDir) {
-		err := os.Remove(indexDir)
-		if err != nil {
-			fmt.Println("Error:", err)
-		}
-	}
 
 	// Open or create a new index
 	index, err := bleve.Open(indexDir)
@@ -40,13 +33,16 @@ func Index(dataDir string) error {
 		return err
 	}
 
+	stopChan := make(chan struct{})
+	go showIndicatorsDots(stopChan)
+
 	// Walk through the YAML files and index them
 	err = filepath.Walk(dataDir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
 
-		if !info.IsDir() && strings.HasSuffix(strings.ToLower(path), ".yml") {
+		if !info.IsDir() && (strings.HasSuffix(strings.ToLower(path), ".yml") || strings.HasSuffix(strings.ToLower(path), ".yaml")) {
 
 			data, err := os.ReadFile(path)
 			if err != nil {
@@ -62,7 +58,6 @@ func Index(dataDir string) error {
 				return nil
 			}
 
-			// Index the YAML data
 			index.Index(path, yamlData)
 
 		}
@@ -73,8 +68,8 @@ func Index(dataDir string) error {
 		fmt.Printf("Error walking the directory: %v\n", err)
 		return err
 	}
-
-	println("Indexing finished")
+	close(stopChan)
+	println("Done!")
 
 	index.Close()
 	return nil
@@ -141,4 +136,20 @@ func GetDocument(id string) *document.Document {
 	}
 
 	return nil
+}
+
+func showIndicatorsDots(stopChan <-chan struct{}) {
+	dots := []string{".", "..", "...", "...."}
+	index := 0
+
+	for {
+		select {
+		case <-stopChan:
+			return
+		default:
+			fmt.Printf("\rIndexing%s", dots[index])
+			index = (index + 1) % len(dots)
+			time.Sleep(500 * time.Millisecond)
+		}
+	}
 }
