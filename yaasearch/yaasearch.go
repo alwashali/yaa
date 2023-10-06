@@ -90,9 +90,10 @@ func Search(query []string, limit int) *bleve.SearchResult {
 
 		search := bleve.NewSearchRequest(query)
 		search.Size = limit
+		search.Explain = true
+		search.Highlight = bleve.NewHighlight()
 
 		os := runtime.GOOS
-
 		// Check if the operating system is Windows
 		if os == "linux" || os == "darwin" {
 			search.Highlight = bleve.NewHighlightWithStyle("ansi")
