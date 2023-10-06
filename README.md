@@ -6,6 +6,8 @@ yaa is designed to search the content of open source projects that use YAML file
 
 **Full Text Search**
 
+search all rules that contain the keyword '7zip'. 
+
 ![image](https://github.com/alwashali/yaa/assets/22593441/85a9905c-6bb2-44e3-9e33-9b05f107322d)
 
 
@@ -23,8 +25,7 @@ The power of yaa search comes from its query language, which depends on full-tex
 ![image](https://github.com/alwashali/yaa/assets/22593441/cb1ba680-b539-459d-92f7-b0f5e4317824)
 
 
-
-Using NOT operation to exclude result having **WMI** in falsepositive property, and limiting the display result to 3 rules only. 
+Search for **WMI** related rules and exclude any rule having **WMI** in the falsepositive property. 
 
 ![image](https://github.com/alwashali/yaa/assets/22593441/8007a61b-7b91-483f-b330-b5ea45c336a8)
 
