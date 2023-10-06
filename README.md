@@ -8,7 +8,8 @@ yaa is designed to search the content of open source projects that use YAML file
 
 ![image](https://github.com/alwashali/yaa/assets/22593441/85a9905c-6bb2-44e3-9e33-9b05f107322d)
 
-**Query Language** 
+
+## Query Language 
 The power of yaa search comes from its query language, which depends on full-text search. Search can be as simple as writing a few keywords to search for any matches or to search inside a specific yaml property, or both. The default operation between search keywords is **OR.** 
 
  
