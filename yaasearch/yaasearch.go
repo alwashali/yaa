@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"time"
 
@@ -90,7 +91,12 @@ func Search(query []string, limit int) *bleve.SearchResult {
 		search := bleve.NewSearchRequest(query)
 		search.Size = limit
 
-		search.Highlight = bleve.NewHighlightWithStyle("ansi")
+		os := runtime.GOOS
+
+		// Check if the operating system is Windows
+		if os == "linux" || os == "darwin" {
+			search.Highlight = bleve.NewHighlightWithStyle("ansi")
+		}
 
 		fmt.Printf("Searching for '%s'\n", queryStr)
 
