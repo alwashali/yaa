@@ -25,6 +25,8 @@ The power of yaa search comes from its query language, which depends on full-tex
 ![image](https://github.com/alwashali/yaa/assets/22593441/cb1ba680-b539-459d-92f7-b0f5e4317824)
 
 
+## Examples
+
 Search for **WMI** persistence related rules and exclude any rule having **WMI** in the falsepositive property. 
 
 ![image](https://github.com/alwashali/yaa/assets/22593441/8007a61b-7b91-483f-b330-b5ea45c336a8)
