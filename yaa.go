@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"os"
+	"path/filepath"
 
 	yaasearch "yaa/yaasearch"
 
@@ -14,19 +16,24 @@ func main() {
 		Name:  "Yaa",
 		Usage: "Yaml Searach for Humans",
 
-		Flags: []cli.Flag{
-			&cli.IntFlag{
-				Name:  "limit",
-				Value: 10,
-				Usage: "Number of results to display",
-			},
-		},
-
 		Commands: []*cli.Command{
 			{
-				Name:    "search",
-				Aliases: []string{"s"},
-				Usage:   "Search for sigma rules",
+				Name:      "search",
+				Aliases:   []string{"s"},
+				UsageText: "Yaa search [options] SearchQuery",
+				Flags: []cli.Flag{
+					&cli.IntFlag{
+						Name:    "limit",
+						Aliases: []string{"l"},
+						Value:   10,
+						Usage:   "Number of results to display",
+					},
+					&cli.StringFlag{
+						Name:    "export",
+						Aliases: []string{"e"},
+						Usage:   "Path to save yaml files",
+					},
+				},
 
 				Action: searchAction,
 			},
@@ -46,21 +53,48 @@ func main() {
 }
 
 func searchAction(c *cli.Context) error {
+
 	query := c.Args().Slice()
 	if len(query) == 0 {
-		return cli.Exit("Please provide a search query", 1)
+
+		return cli.Exit("No query was found, use -h for hlep.", 1)
 	}
+
 	limit := c.Int("limit")
 
 	results := yaasearch.Search(query, limit)
-	if results != nil {
+
+	if results.Hits.Len() > 0 {
+		if c.IsSet("export") {
+
+			dest_path := c.String("export")
+
+			_, err := os.Stat(dest_path)
+			if err != nil {
+				fmt.Println(err)
+				os.Exit(1)
+			}
+			// ID is set to the file path
+			count := 0
+			for _, hit := range results.Hits {
+
+				err := exportFile(hit.ID, dest_path)
+				if err != nil {
+					fmt.Print(err)
+				}
+				count++
+				//fmt.Printf("Exporting %s\n", hit.ID)
+			}
+			fmt.Println(count, "files exported.")
+			return nil
+		}
 
 		fmt.Println(results)
-		fmt.Println()
-
 	} else {
-		fmt.Println("Error: Search was not successful")
+
+		fmt.Println("No Match Found")
 	}
+
 	return nil
 }
 
@@ -74,6 +108,40 @@ func indexAction(c *cli.Context) error {
 	}
 
 	yaasearch.Index(path)
+
+	return nil
+}
+
+// copy the file to destination path specified in the export option
+func exportFile(srcFilePath, destPath string) error {
+
+	filename := filepath.Base(srcFilePath)
+
+	dest_file := filepath.Join(destPath, filename)
+
+	srcFile, err := os.Open(srcFilePath)
+	if err != nil {
+		return err
+	}
+	defer srcFile.Close()
+
+	destFile, err := os.Create(dest_file)
+	if err != nil {
+		return err
+	}
+	defer destFile.Close()
+
+	buffer := make([]byte, 8192) // 8KB buffer size (adjust as needed)
+
+	_, err = io.CopyBuffer(destFile, srcFile, buffer)
+	if err != nil {
+		return err
+	}
+
+	err = destFile.Sync()
+	if err != nil {
+		return err
+	}
 
 	return nil
 }

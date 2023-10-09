@@ -1,3 +1,5 @@
 sigma/
 yaml_index/
 .DS_STORE
+.yaa
+.binary

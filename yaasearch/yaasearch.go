@@ -99,8 +99,6 @@ func Search(query []string, limit int) *bleve.SearchResult {
 			search.Highlight = bleve.NewHighlightWithStyle("ansi")
 		}
 
-		fmt.Printf("Searching for '%s'\n", queryStr)
-
 		result, err := index.Search(search)
 
 		if err != nil {
