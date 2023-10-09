@@ -45,7 +45,24 @@ yaa is built for searching inside detection rule projects such as SigmaHQ, howev
 
 ![image](https://github.com/alwashali/yaa/assets/22593441/886d03f6-2120-4d22-a5e2-4530a68bf018)
 
+## Export Matches 
 
+```bash
+% ./yaa search --export /tmp/sigma/ --limit 100  +title:hacktool 
+79 files exported.
+% ls /tmp/sigma | head
+av_hacktool.yml
+create_remote_thread_win_hktl_cactustorch.yml
+create_remote_thread_win_hktl_cobaltstrike.yml
+create_stream_hash_hacktool_download.yml
+file_event_win_hktl_createminidump.yml
+file_event_win_hktl_dumpert.yml
+file_event_win_hktl_nppspy.yml
+file_event_win_remote_access_tools_screenconnect_remote_file.yml
+image_load_hktl_sharpevtmute.yml
+image_load_hktl_silenttrinity_stager.yml
+
+```
 
 
 ## Build yaa 
