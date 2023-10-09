@@ -11,7 +11,7 @@ import (
 	"github.com/blevesearch/bleve"
 	_ "github.com/blevesearch/bleve/config"
 	"github.com/blevesearch/bleve/document"
-	"github.com/go-yaml/yaml"
+	"gopkg.in/yaml.v3"
 )
 
 var indexDir = "yaml_index"

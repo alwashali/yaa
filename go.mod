@@ -4,8 +4,8 @@ go 1.20
 
 require (
 	github.com/blevesearch/bleve v1.0.14
-	github.com/go-yaml/yaml v2.1.0+incompatible
 	github.com/urfave/cli/v2 v2.25.7
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (

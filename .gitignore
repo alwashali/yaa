@@ -1,5 +1,6 @@
 sigma/
 yaml_index/
 .DS_STORE
-.yaa
-.binary
+yaa
+binary
+Azure-Sentinel
