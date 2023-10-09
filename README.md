@@ -36,7 +36,7 @@ Search for **WMI** persistence related rules and exclude any rule having **WMI**
 
 ## Indexing yaml project 
 
-yaa is built for searching inside detection rule projects such as SigmaHQ, however it can be used with any similar project. To index yaml project inside, use the command **index**, following example shows how to use the tool with SigmaHQ project. 
+yaa is built for searching inside detection rule projects such as SigmaHQ, however it can be used with any similar project. To index yaml project, use the command **index**, following example shows how to use the tool with SigmaHQ project. 
 
 
 ```
