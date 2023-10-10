@@ -1,6 +1,8 @@
-sigma/
-yaml_index/
+sigma
+yaml_index
 .DS_STORE
 yaa
 binary
 Azure-Sentinel
+security_content
+nuclei-templates
