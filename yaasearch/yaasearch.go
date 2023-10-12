@@ -103,6 +103,7 @@ func Search(query []string, limit int) *bleve.SearchResult {
 		return result
 	} else {
 		fmt.Println("Index was not found")
+		os.Exit(1)
 	}
 
 	return nil
