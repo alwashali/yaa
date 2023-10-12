@@ -35,7 +35,7 @@ Search for **WMI** persistence related rules and exclude any rule having **WMI**
 
 ### Nested property search
 
-Yaa can index nested properties and make them searchable by specifying the nested property prefixed a dot.
+Yaa can index nested properties and make them searchable by specifying the nested property name prefixed with a dot.
 
 ![image](https://github.com/alwashali/yaa/assets/22593441/b5ea4e28-b481-4277-b308-7d0b536b1d69)
 
