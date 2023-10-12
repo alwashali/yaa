@@ -11,6 +11,8 @@ import (
 	"github.com/blevesearch/bleve"
 	_ "github.com/blevesearch/bleve/config"
 	"github.com/blevesearch/bleve/document"
+	"github.com/blevesearch/bleve/search/highlight/highlighter/ansi"
+	"github.com/blevesearch/bleve/v2/search/highlight/format/plain"
 	"gopkg.in/yaml.v3"
 )
 
@@ -90,13 +92,12 @@ func Search(query []string, limit int) *bleve.SearchResult {
 
 		search := bleve.NewSearchRequest(query)
 		search.Size = limit
-		search.Explain = true
-		search.Highlight = bleve.NewHighlight()
 
 		os := runtime.GOOS
-		// Check if the operating system is Windows
-		if os == "linux" || os == "darwin" {
-			search.Highlight = bleve.NewHighlightWithStyle("ansi")
+		if os == "windows" {
+			search.Highlight = bleve.NewHighlightWithStyle(plain.Name)
+		} else if os == "linux" || os == "darwin" {
+			search.Highlight = bleve.NewHighlightWithStyle(ansi.Name)
 		}
 
 		result, err := index.Search(search)
