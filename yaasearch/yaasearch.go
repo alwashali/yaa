@@ -4,12 +4,10 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"runtime"
 	"strings"
 	"time"
 
 	bleve "github.com/blevesearch/bleve/v2"
-	"github.com/blevesearch/bleve/v2/search/highlight/format/plain"
 	"github.com/blevesearch/bleve/v2/search/highlight/highlighter/ansi"
 	"gopkg.in/yaml.v3"
 )
@@ -83,20 +81,17 @@ func Search(query []string, limit int) *bleve.SearchResult {
 	if indexExists(indexDir) {
 
 		index, err := bleve.Open(indexDir)
+		if err != nil {
+			fmt.Printf("Error searching index: %v\n", err)
+			return nil
+		}
 		defer index.Close()
 
 		queryStr := strings.Join(query, " ")
 		query := bleve.NewQueryStringQuery(queryStr)
-
 		search := bleve.NewSearchRequest(query)
 		search.Size = limit
-
-		os := runtime.GOOS
-		if os == "windows" {
-			search.Highlight = bleve.NewHighlightWithStyle(plain.Name)
-		} else if os == "linux" || os == "darwin" {
-			search.Highlight = bleve.NewHighlightWithStyle(ansi.Name)
-		}
+		search.Highlight = bleve.NewHighlightWithStyle(ansi.Name)
 
 		result, err := index.Search(search)
 
