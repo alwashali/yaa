@@ -8,11 +8,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/blevesearch/bleve"
-	_ "github.com/blevesearch/bleve/config"
-	"github.com/blevesearch/bleve/document"
-	"github.com/blevesearch/bleve/search/highlight/highlighter/ansi"
+	bleve "github.com/blevesearch/bleve/v2"
 	"github.com/blevesearch/bleve/v2/search/highlight/format/plain"
+	"github.com/blevesearch/bleve/v2/search/highlight/highlighter/ansi"
 	"gopkg.in/yaml.v3"
 )
 
@@ -125,25 +123,6 @@ func indexExists(path string) bool {
 		return false // Folder does not exist
 	}
 	return false
-}
-
-func GetDocument(id string) *document.Document {
-	if indexExists(indexDir) {
-
-		index, err := bleve.Open(indexDir)
-
-		defer index.Close()
-		if err != nil {
-			fmt.Println(err)
-		}
-		doc, err := index.Document(id)
-		return doc
-
-	} else {
-		fmt.Println("Index was not found")
-	}
-
-	return nil
 }
 
 func showIndicatorsDots(stopChan <-chan struct{}) {
