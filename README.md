@@ -6,7 +6,10 @@ yaa is a tool designed to search the content of open source projects that use YA
 
 
 ## Query Language 
-The power of yaa search comes from its query language, which depends on full-text search. Search can be as simple as writing a few keywords to search for any matches or to search inside a specific yaml property, or both. The default operation between search keywords is **OR.** 
+The power of yaa search comes from its query language, which depends on full-text search. Search can be as simple as writing a few keywords to search for any matches or to search inside a specific yaml property, or both. 
+
+- +keywords means the word must appear (**AND** operation)
+- -keywords means the keyword must not appears in the search result (**Not** operation)
 
 
 ### Full Text Search
@@ -16,12 +19,7 @@ Search all rules that contain the keyword '7zip'.
 ![image](https://github.com/alwashali/yaa/assets/22593441/85a9905c-6bb2-44e3-9e33-9b05f107322d)
 
  
-
-### Basic search filters
-
-- +keywords means the word must appear (**AND** operation)
-- -keywords means the keyword must not appears in the search result (**Not** operation)
-
+Yaml property search with AND operator, searching for any rule that has the word 'powershell **AND** obfuscation' in the title property.
 
 ![image](https://github.com/alwashali/yaa/assets/22593441/cb1ba680-b539-459d-92f7-b0f5e4317824)
 
