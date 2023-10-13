@@ -2,7 +2,7 @@
 yaa - yaml search for humans 
 
 
-yaa is a tool designed to search the content of open source projects that use YAML files as their primary file structure. It is primarily used for detecting content projects but it can be used with any YAML-based project. For example, the SigmaHQ Project has approximately 2700 rules, and Splunk content library has approximately 1400 rules. Similarly, Nuclei templates and Sentinel detections, they contain a significant number of rules. Searching within the content of these files can be challenging, especially if you want to query language to extract specific search criteria. yaa provides a straightforward method by using a query language to search for specific content within the YAML files of these projects.
+yaa is a tool designed to search the content of open source projects that use YAML files as their primary file structure. It is primarily used for searching inside detection content projects but it can be used with any YAML-based project. SigmaHQ Project has approximately 2700 rules, and Splunk content library has approximately 1400 rules. Similarly, Nuclei templates and Sentinel detections, they contain a significant number of rules. Searching within the content of these files can be challenging, especially if you want a query language to extract specific search criteria. yaa provides a straightforward method by using a query language to search for specific content within the YAML files of these projects. 
 
 
 ## Query Language 
