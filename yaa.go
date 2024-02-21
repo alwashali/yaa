@@ -14,7 +14,7 @@ import (
 func main() {
 	app := &cli.App{
 		Name:  "Yaa",
-		Usage: "Yaml Searach for Humans",
+		Usage: "Yaml Search for Humans",
 
 		Commands: []*cli.Command{
 			{
